@@ -1,24 +1,40 @@
 package calculator.calculationServices.bracketServices;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(MockitoExtension.class)
 class BracketsValidatorTest {
 
-    BracketsValidator bracketsValidator = new BracketsValidator();
+    @Spy
+    private BracketsValidator bracketsValidator;
 
     @Test
-    void test1() {
-        assertTrue(bracketsValidator.test(""));
-        assertTrue(bracketsValidator.test("()"));
-        assertTrue(bracketsValidator.test("(1 - 3)"));
-        assertTrue(bracketsValidator.test("(1 * (3 + 1))"));
+    void correctNumberOfBrackets() {
+        assertAll(
+                () -> assertTrue(bracketsValidator.test("(()())")),
+                () -> assertTrue(bracketsValidator.test("()")),
+                () -> assertTrue(bracketsValidator.test(""))
+        );
+    }
 
-        assertFalse(bracketsValidator.test("(1 + 2"));
-        assertFalse(bracketsValidator.test("(1 + 2) + (1 + 3"));
-        assertFalse(bracketsValidator.test("(1 + (2 - 1)"));
-        assertFalse(bracketsValidator.test("1 + 2)"));
+    @Test
+    void incorrectNumberOfBrackets() {
+        assertAll(
+                () -> assertFalse(bracketsValidator.test("(")),
+                () -> assertFalse(bracketsValidator.test(")")),
+                () -> assertFalse(bracketsValidator.test("(()")),
+                () -> assertFalse(bracketsValidator.test("())")),
+                () -> assertFalse(bracketsValidator.test("'("))
+        );
+    }
 
+    @Test
+    void nullArgument() {
+        assertThrows(NullPointerException.class, () -> bracketsValidator.test(null));
     }
 }

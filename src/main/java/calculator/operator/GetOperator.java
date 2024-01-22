@@ -1,5 +1,7 @@
 package calculator.operator;
 
+import calculator.exceptions.UnknownOperatorException;
+
 import java.util.function.Function;
 
 public class GetOperator implements Function<String, Operator> {
@@ -11,6 +13,6 @@ public class GetOperator implements Function<String, Operator> {
             case "*": return Operator.MULTIPLICATION;
             case "/": return Operator.DIVISION;
         }
-        return null;
+        throw new UnknownOperatorException();
     }
 }

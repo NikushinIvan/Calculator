@@ -1,5 +1,6 @@
 package calculator.operator;
 
+import calculator.exceptions.UnknownOperatorException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Spy;
@@ -35,13 +36,13 @@ class GetOperatorTest {
     }
 
     @Test
-    void getNullWithUnknownOperator() {
-        assertNull(getOperator.apply("a"));
+    void getThrowsWithUnknownOperator() {
+        assertThrows(UnknownOperatorException.class, () -> getOperator.apply("a"));
     }
 
     @Test
-    void getNullForEmptyString() {
-        assertNull(getOperator.apply(""));
+    void getThrowsForEmptyString() {
+        assertThrows(UnknownOperatorException.class, () -> getOperator.apply(""));
     }
 
     @Test

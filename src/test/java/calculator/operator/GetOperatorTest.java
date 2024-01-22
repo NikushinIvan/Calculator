@@ -45,7 +45,7 @@ class GetOperatorTest {
     }
 
     @Test
-    void getNullWhenNull() {
-        assertNull(getOperator.apply(null));
+    void getThrowsWhenNull() {
+        assertThrows(NullPointerException.class, () -> getOperator.apply(null));
     }
 }

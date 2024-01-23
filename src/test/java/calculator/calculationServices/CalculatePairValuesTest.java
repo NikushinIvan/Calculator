@@ -40,7 +40,7 @@ class CalculatePairValuesTest {
         assertAll(
                 () -> assertEquals("25.0", cpv.apply(new String[] {"5.0", "5"}, MULTIPLICATION)),
                 () -> assertEquals("24.75", cpv.apply(new String[] {"-4.5", "-5.5"}, MULTIPLICATION)),
-                () -> assertEquals("-1.0", cpv.apply(new String[] {"1.0", "-1"}, MULTIPLICATION)),
+                () -> assertEquals("0.0", cpv.apply(new String[] {"1.0", "0"}, MULTIPLICATION)),
                 () -> assertEquals("-0.00010", cpv.apply(new String[] {"-0.01", "0.01"}, MULTIPLICATION))
         );
     }
@@ -68,5 +68,20 @@ class CalculatePairValuesTest {
     @Test
     void calculateThreeNumber() {
         assertThrows(InvalidArrayLength.class, () -> cpv.apply(new String[] {"1", "2", "3"}, SUM));
+    }
+
+    @Test
+    void nullArgument() {
+        assertAll(
+                () -> assertThrows(
+                        NullPointerException.class, () -> cpv.apply(null, SUM)
+                ),
+                () -> assertThrows(
+                        NullPointerException.class, () -> cpv.apply(new String[] {"1.0", "0.0"}, null)
+                ),
+                () -> assertThrows(
+                        NullPointerException.class, () -> cpv.apply(null, null)
+                )
+        );
     }
 }

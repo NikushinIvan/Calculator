@@ -7,6 +7,8 @@ import calculator.operator.Operator;
 import java.math.BigDecimal;
 import java.util.function.BiFunction;
 
+import static calculator.operator.Operator.*;
+
 public class CalculatePairValues implements BiFunction<String[], Operator, String> {
 
     @Override
@@ -18,7 +20,7 @@ public class CalculatePairValues implements BiFunction<String[], Operator, Strin
         var value1 = Double.parseDouble(stringValues[0]);
         var value2 = Double.parseDouble(stringValues[1]);
 
-        if (value2 == 0 && operator == Operator.DIVISION) {
+        if (value2 == 0 && operator == DIVISION) {
             throw new ArithmeticException("Division by zero");
         }
 

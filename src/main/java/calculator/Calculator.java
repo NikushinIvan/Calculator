@@ -1,9 +1,8 @@
 package calculator;
 
+import calculator.calculationServices.CalculateExpression;
 import calculator.calculationServices.bracketServices.BracketsThisLevel;
 import calculator.calculationServices.bracketServices.BracketsValidator;
-import calculator.calculationServices.CalculateSumAndDif;
-import calculator.calculationServices.CalculateMultAndDiv;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,8 +12,7 @@ import java.util.function.Function;
 public class Calculator implements Function<String, Double> {
     @Override
     public Double apply(String expression) {
-        var calculateMultAndDiv = new CalculateMultAndDiv();
-        var calculateSumAndDif = new CalculateSumAndDif();
+        var calculateExpression = new CalculateExpression();
         var bracketsValidator = new BracketsValidator();
         var bracketsThisLevel = new BracketsThisLevel();
 
@@ -28,8 +26,7 @@ public class Calculator implements Function<String, Double> {
         }
 
         List<String> values = new ArrayList<>(Arrays.asList(expression.split(" ")));
-        values = calculateMultAndDiv.apply(values);
-        values = calculateSumAndDif.apply(values);
+        values = calculateExpression.apply(values);
 
         return Double.parseDouble(values.get(0));
     }

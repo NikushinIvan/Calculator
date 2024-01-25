@@ -6,7 +6,7 @@ import java.util.function.Function;
 public class BracketsThisLevel implements Function<String, ArrayList<String>> {
     @Override
     public ArrayList<String> apply(String s) {
-        ArrayList<String> expressionsInBrackets = new ArrayList<>();
+        var expressionsInBrackets = new ArrayList<String>();
         var bracketsValidator = new BracketsValidator();
 
         while (s.contains("(")) {
